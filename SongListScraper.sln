@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSongList", "TestSongList\TestSongList.csproj", "{F5628989-9AF8-439E-A813-494A6FC4D5EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{91050381-7F7E-4D9D-8EE4-207E71E61D86} = {91050381-7F7E-4D9D-8EE4-207E71E61D86}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D85F3315-0811-40CE-8CE9-7CDE8D71CD65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{3FA625AE-EE24-406F-9301-A7317DD49462}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper", "SongListScraper\SongListScraper.csproj", "{91050381-7F7E-4D9D-8EE4-207E71E61D86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongScrapingService", "SongScrapingService\SongScrapingService.csproj", "{1048B4E1-99EA-495A-B10F-97BC3C724FD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91050381-7F7E-4D9D-8EE4-207E71E61D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91050381-7F7E-4D9D-8EE4-207E71E61D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91050381-7F7E-4D9D-8EE4-207E71E61D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91050381-7F7E-4D9D-8EE4-207E71E61D86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1048B4E1-99EA-495A-B10F-97BC3C724FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1048B4E1-99EA-495A-B10F-97BC3C724FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1048B4E1-99EA-495A-B10F-97BC3C724FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1048B4E1-99EA-495A-B10F-97BC3C724FD4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5628989-9AF8-439E-A813-494A6FC4D5EA} = {3FA625AE-EE24-406F-9301-A7317DD49462}
+		{91050381-7F7E-4D9D-8EE4-207E71E61D86} = {D85F3315-0811-40CE-8CE9-7CDE8D71CD65}
+		{1048B4E1-99EA-495A-B10F-97BC3C724FD4} = {D85F3315-0811-40CE-8CE9-7CDE8D71CD65}
+	EndGlobalSection
+EndGlobal
