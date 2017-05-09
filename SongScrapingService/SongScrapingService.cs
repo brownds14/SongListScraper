@@ -1,43 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ServiceProcess;
-using SongListScraper;
-using System.Timers;
-using System.IO;
-using System.Threading.Tasks;
-using SongListScraper.Service;
-using SongListScraper.Settings;
-using SongListScraper.Logging;
-using System.Configuration;
+﻿using System.ServiceProcess;
+using Microsoft.Practices.Unity;
+using SongListScraper.Helpers.Download;
+using SongListScraper.Helpers.Logging;
+using SongListScraper.Helpers.SongWriter;
 using SongListScraper.Scraper;
+using SongListScraper.Settings;
 
-namespace WindowsService1
+namespace SongListScraper.UI.WinService
 {
     public partial class SongScrapingService : ServiceBase
     {
         private ScrapingService _service;
         private ILogger _logger;
-        private SettingsConfig _settings;
 
         public SongScrapingService()
         {
             InitializeComponent();
 
-            _settings = new SettingsConfig();
-            SettingsConfig.Load(ref _settings);
+            var container = new UnityContainer();
 
-            _logger = LoggingManager.CreateLogger("MyBasicLogger");
+            container.RegisterType<IDownload, HtmlDownloader>();
+            container.RegisterType<ILogger, FalseLogger>();
+            container.RegisterType<IWrite, WriteSongToConsole>();
+            container.RegisterType<IScrape, Station1033Scraper>();
+            container.RegisterType<SettingsConfig, SettingsConfig>();
 
-            _service = new ScrapingService(new Station1033Scraper(_logger), _settings, _logger);
+            _service = container.Resolve<ScrapingService>();
+            _logger = container.Resolve<ILogger>();
         }
 
         protected override void OnStart(string[] args)
         {
+            _service.StartService();
             _logger.Log(LogType.INFO, "Windows service starting");
         }
 
         protected override void OnStop()
         {
+            _service.StopService();
             _logger.Log(LogType.INFO, "Windows service stopping");
         }
     }

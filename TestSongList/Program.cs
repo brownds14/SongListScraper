@@ -1,20 +1,27 @@
-﻿using System;
-using SongListScraper.Settings;
+﻿using Microsoft.Practices.Unity;
+using SongListScraper.Helpers.Download;
+using SongListScraper.Helpers.Logging;
+using SongListScraper.Helpers.SongWriter;
 using SongListScraper.Scraper;
-using SongListScraper.Logging;
-using SongListScraper.Service;
+using SongListScraper.Settings;
 
-namespace TestSongList
+namespace SongListScraper.UI.Console
 {
     class Pogram
     {
         static void Main(string[] args)
         {
-            SettingsConfig settings = new SettingsConfig();
-            settings.StorageType = SongStorage.CONSOLE;
-            ILogger _logger = LoggingManager.CreateLogger("MyBasicLogger");
-            ScrapingService service = new ScrapingService(new Station1033Scraper(_logger), settings, _logger);
-            Console.Read();
+            var container = new UnityContainer();
+
+            container.RegisterType<IDownload, HtmlDownloader>();
+            container.RegisterType<ILogger, FalseLogger>();
+            container.RegisterType<IWrite, WriteSongToConsole>();
+            container.RegisterType<IScrape, Station1033Scraper>();
+            container.RegisterType<SettingsConfig, SettingsConfig>();
+
+            ScrapingService service = container.Resolve<ScrapingService>();
+
+            System.Console.Read();
         }
     }
 }

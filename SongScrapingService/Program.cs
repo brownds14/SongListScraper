@@ -7,7 +7,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsService1
+namespace SongListScraper.UI.WinService
 {
     static class Program
     {

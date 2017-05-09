@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper", "SongListScraper\SongListScraper.csproj", "{91050381-7F7E-4D9D-8EE4-207E71E61D86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongScrapingService", "SongScrapingService\SongScrapingService.csproj", "{1048B4E1-99EA-495A-B10F-97BC3C724FD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper.UI.WinService", "SongScrapingService\SongListScraper.UI.WinService.csproj", "{1048B4E1-99EA-495A-B10F-97BC3C724FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSongList", "TestSongList\TestSongList.csproj", "{F5628989-9AF8-439E-A813-494A6FC4D5EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper.UI.Console", "TestSongList\SongListScraper.UI.Console.csproj", "{F5628989-9AF8-439E-A813-494A6FC4D5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

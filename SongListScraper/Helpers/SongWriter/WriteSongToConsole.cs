@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SongListScraper.Helpers.SongWriter
 {
-    internal class WriteSongToConsole : IWrite
+    public class WriteSongToConsole : IWrite
     {
         public void WriteSongs(List<Song> songs)
         {

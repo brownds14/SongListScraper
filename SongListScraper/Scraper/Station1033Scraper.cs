@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SongListScraper.Helpers.Logging;
 using SongListScraper.Helpers.Download;
 using SongListScraper.Helpers.TimeProvider;
+using System.Threading.Tasks;
 
 namespace SongListScraper.Scraper
 {
@@ -25,13 +26,14 @@ namespace SongListScraper.Scraper
             _logger = logger;
         }
 
-        public async void DownloadPage()
+        public async Task<bool> DownloadPage()
         {
             //Restricts the number of download requests
             if (_lastDownload == null || _lastDownload.Value.AddMinutes(_downloadRestrict) <= DateTime.Now)
             {
                 string html = await _downloader.DownloadHtml(_address);
                 _doc.LoadHtml(html);
+                return true;
             }
             else
             {

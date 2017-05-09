@@ -5,7 +5,7 @@ using System.IO;
 
 namespace SongListScraper.Helpers.SongWriter
 {
-    internal class WriteSongToFile : IWrite
+    public class WriteSongToFile : IWrite
     {
         private string _delimiter;
         private string _filePath;

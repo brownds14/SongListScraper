@@ -52,30 +52,32 @@ namespace SongListScraper
             GetNewSongs();
         }
 
-        private void GetNewSongs()
+        private async void GetNewSongs()
         {
             DateTime oldest = new DateTime();
 
             try
             {
-                _scraper.DownloadPage();
-                _logger.Log(LogType.INFO, "Download Complete");
-                List<Song> songs = _scraper.ScrapeSongList();
-                List<Song> songsToWrite = new List<Song>();
-
-                foreach (Song s in songs)
+                if (await _scraper.DownloadPage())
                 {
-                    if (s.Played > oldest)
-                        oldest = s.Played;
+                    _logger.Log(LogType.INFO, "Download Complete");
+                    List<Song> songs = _scraper.ScrapeSongList();
+                    List<Song> songsToWrite = new List<Song>();
 
-                    if (lastAdded == null || s.Played > lastAdded)
+                    foreach (Song s in songs)
                     {
-                        songsToWrite.Add(s);
-                    }
-                }
+                        if (s.Played > oldest)
+                            oldest = s.Played;
 
-                _writer.WriteSongs(songsToWrite);
-                lastAdded = oldest;
+                        if (lastAdded == null || s.Played > lastAdded)
+                        {
+                            songsToWrite.Add(s);
+                        }
+                    }
+
+                    _writer.WriteSongs(songsToWrite);
+                    lastAdded = oldest;
+                }
             }
             catch (ExcessiveDownloadException exception)
             {
