@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using SongListScraper.Scraper;
 using SongListScraper.Settings;
 using System.IO;
 
-namespace SongListScraper.SongWriter
+namespace SongListScraper.Helpers.SongWriter
 {
     internal class WriteSongToFile : IWrite
     {

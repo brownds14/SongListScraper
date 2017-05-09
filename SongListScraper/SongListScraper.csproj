@@ -34,9 +34,6 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MyBasicLogger">
-      <HintPath>..\..\MyBasicLogger\MyBasicLogger\bin\Release\MyBasicLogger.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -48,27 +45,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Download\HtmlDownloader.cs" />
+    <Compile Include="Helpers\Download\IDownload.cs" />
+    <Compile Include="Helpers\TimeProvider\DefaultTimeProvider.cs" />
+    <Compile Include="Helpers\TimeProvider\TimeProvider.cs" />
     <Compile Include="Scraper\ExcessiveDownloadException.cs" />
-    <Compile Include="Logging\FalseLogger.cs" />
-    <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Logging\LoggingManager.cs" />
-    <Compile Include="Logging\MyBasicLoggerAdapter.cs" />
+    <Compile Include="Helpers\Logging\FalseLogger.cs" />
+    <Compile Include="Helpers\Logging\ILogger.cs" />
     <Compile Include="Scraper\IScrape.cs" />
-    <Compile Include="Service\ScrapingService.cs" />
+    <Compile Include="ScrapingService.cs" />
     <Compile Include="Settings\Enums.cs" />
     <Compile Include="Settings\SettingsConfig.cs" />
-    <Compile Include="Scraper\Song.cs" />
-    <Compile Include="Scraper\StationScraper.cs" />
+    <Compile Include="Song.cs" />
+    <Compile Include="Scraper\Station1033Scraper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SongWriter\IWrite.cs" />
-    <Compile Include="SongWriter\SongWriterManager.cs" />
-    <Compile Include="SongWriter\WriteSongToConsole.cs" />
-    <Compile Include="SongWriter\WriteSongToFile.cs" />
+    <Compile Include="Helpers\SongWriter\IWrite.cs" />
+    <Compile Include="Helpers\SongWriter\WriteSongToConsole.cs" />
+    <Compile Include="Helpers\SongWriter\WriteSongToFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

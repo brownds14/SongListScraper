@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace SongListScraper.Logging
+namespace SongListScraper.Helpers.Logging
 {
     public enum LogType
     {
+        DEBUG,
         INFO,
         WARN,
         ERROR,

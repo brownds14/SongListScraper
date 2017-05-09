@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SongListScraper.Scraper;
 
-namespace SongListScraper.SongWriter
+namespace SongListScraper.Helpers.SongWriter
 {
     internal class WriteSongToConsole : IWrite
     {

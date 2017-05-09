@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SongListScraper.Logging
+namespace SongListScraper.Helpers.Logging
 {
-    internal class FalseLogger : ILogger
+    public class FalseLogger : ILogger
     {
         public void Log(LogType type, string msg, Exception e)
         {
