@@ -29,10 +29,11 @@ namespace SongListScraper.Scraper
         public async Task<bool> DownloadPage()
         {
             //Restricts the number of download requests
-            if (_lastDownload == null || _lastDownload.Value.AddMinutes(_downloadRestrict) <= DateTime.Now)
+            if (_lastDownload == null || _lastDownload.Value.AddMinutes(_downloadRestrict) <= TimeProvider.Current.UtcNow)
             {
                 string html = await _downloader.DownloadHtml(_address);
                 _doc.LoadHtml(html);
+                _lastDownload = TimeProvider.Current.UtcNow;
                 return true;
             }
             else
@@ -45,6 +46,7 @@ namespace SongListScraper.Scraper
         {
             DateTime today = TimeProvider.Current.UtcNow.Date;
             DateTime date;
+            bool isMorning = false;
             List<Song> songs = new List<Song>();
 
             _logger.Log(LogType.INFO, "Beginning parsing html");
@@ -63,6 +65,15 @@ namespace SongListScraper.Scraper
                     String[] time = fullTime.Substring(0, fullTime.Length - 2).Split(':');
                     Int32 hour = Convert.ToInt32(time[0]);
                     Int32 min = Convert.ToInt32(time[1]);
+
+                    //Adjust if the playlist plays over multiple days
+                    if (fullTime.Contains("am"))
+                        isMorning = true;
+                    else if (fullTime.Contains("pm") && isMorning)
+                    {
+                        isMorning = false;
+                        today = today.AddDays(-1);
+                    }
 
                     //Adjust hour for AM and PM
                     if (hour != 12 && fullTime.Contains("pm"))

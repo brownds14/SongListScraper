@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper.UI.WinServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper.UI.Console", "SongListScraper.UI.Console\SongListScraper.UI.Console.csproj", "{F5628989-9AF8-439E-A813-494A6FC4D5EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongListScraper.Tests", "SongListScraper.Tests\SongListScraper.Tests.csproj", "{369C3E82-9569-4900-8AE5-DB91DD35AAEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5628989-9AF8-439E-A813-494A6FC4D5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{369C3E82-9569-4900-8AE5-DB91DD35AAEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{369C3E82-9569-4900-8AE5-DB91DD35AAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{369C3E82-9569-4900-8AE5-DB91DD35AAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{369C3E82-9569-4900-8AE5-DB91DD35AAEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,11 +14,12 @@ namespace SongListScraper.UI.Console
             var container = new UnityContainer();
 
             SettingsConfig _settings = new SettingsConfig();
+            _settings.StorageType = SongStorage.CONSOLE;
             SettingsConfig.Load(ref _settings);
             container.RegisterInstance<SettingsConfig>(_settings);
 
             container.RegisterType<IDownload, HtmlDownloader>();
-            container.RegisterType<ILogger, FalseLogger>();
+            container.RegisterType<ILogger, Log4NetAdapter>();
             container.RegisterType<IScrape, Station1033Scraper>();
 
             switch (_settings.StorageType)

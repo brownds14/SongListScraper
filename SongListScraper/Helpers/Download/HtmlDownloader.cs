@@ -7,7 +7,7 @@ namespace SongListScraper.Helpers.Download
 {
     public class HtmlDownloader : IDownload
     {
-        private HttpClient _client;
+        private static HttpClient _client;
         private ILogger _logger;
         
         public HtmlDownloader(ILogger logger)
@@ -24,16 +24,23 @@ namespace SongListScraper.Helpers.Download
             string html = string.Empty;
 
             _logger.Log(LogType.INFO, "Attempting to download html");
-            HttpResponseMessage msg = await _client.GetAsync(address);
+            try
+            {
+                HttpResponseMessage msg = await _client.GetAsync(address);
 
-            if (msg.IsSuccessStatusCode)
-            {
-                _logger.Log(LogType.INFO, "Html download was successful");
-                html = await msg.Content.ReadAsStringAsync();
+                if (msg.IsSuccessStatusCode)
+                {
+                    _logger.Log(LogType.INFO, "Html download was successful");
+                    html = await msg.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    _logger.Log(LogType.WARN, $"Failed to retrieve webpage. Status code: {msg.StatusCode}");
+                }
             }
-            else
+            catch (InvalidOperationException e)
             {
-                _logger.Log(LogType.WARN, $"Failed to retrieve webpage. Status code: {msg.StatusCode}");
+                _logger.Log(LogType.ERROR, $"Address provided was invalid: {address}", e);
             }
 
             return html;

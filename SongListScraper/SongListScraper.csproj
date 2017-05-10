@@ -34,6 +34,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -47,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Helpers\Download\HtmlDownloader.cs" />
     <Compile Include="Helpers\Download\IDownload.cs" />
+    <Compile Include="Helpers\Logging\Log4NetAdapter.cs" />
     <Compile Include="Helpers\TimeProvider\DefaultTimeProvider.cs" />
     <Compile Include="Helpers\TimeProvider\TimeProvider.cs" />
     <Compile Include="Scraper\ExcessiveDownloadException.cs" />
@@ -64,8 +69,12 @@
     <Compile Include="Helpers\SongWriter\WriteSongToFile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
