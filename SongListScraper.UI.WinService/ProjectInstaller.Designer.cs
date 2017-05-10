@@ -39,7 +39,7 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.ServiceName = "Alt1033Service";
+            this.serviceInstaller1.ServiceName = "SongScrapingService";
             // 
             // ProjectInstaller
             // 

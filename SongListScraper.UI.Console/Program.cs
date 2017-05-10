@@ -13,11 +13,23 @@ namespace SongListScraper.UI.Console
         {
             var container = new UnityContainer();
 
+            SettingsConfig _settings = new SettingsConfig();
+            SettingsConfig.Load(ref _settings);
+            container.RegisterInstance<SettingsConfig>(_settings);
+
             container.RegisterType<IDownload, HtmlDownloader>();
             container.RegisterType<ILogger, FalseLogger>();
-            container.RegisterType<IWrite, WriteSongToConsole>();
             container.RegisterType<IScrape, Station1033Scraper>();
-            container.RegisterType<SettingsConfig, SettingsConfig>();
+
+            switch (_settings.StorageType)
+            {
+                case SongStorage.CONSOLE:
+                    container.RegisterType<IWrite, WriteSongToConsole>();
+                    break;
+                case SongStorage.FILE:
+                    container.RegisterType<IWrite, WriteSongToFile>();
+                    break;
+            }
 
             ScrapingService service = container.Resolve<ScrapingService>();
 

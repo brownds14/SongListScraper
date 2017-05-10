@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 
 namespace SongListScraper.Settings
 {
@@ -9,6 +10,7 @@ namespace SongListScraper.Settings
         {
             SavedSongsFile = $"{AppDomain.CurrentDomain.BaseDirectory}SavedSongs.txt";
         }
+
         [ConfigurationProperty("StorageType", DefaultValue = SongStorage.FILE)]
         public SongStorage StorageType
         {
@@ -42,6 +44,7 @@ namespace SongListScraper.Settings
         {
             if (path == null)
                 path = $"{AppDomain.CurrentDomain.BaseDirectory}Settings.xml";
+
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.Sections.Add("SettingsConfig", settings);
             config.SaveAs(path, ConfigurationSaveMode.Full);
@@ -49,11 +52,15 @@ namespace SongListScraper.Settings
         
         public static void Load(ref SettingsConfig settings, string path = null)
         {
+            if (path == null)
+                path = $"{AppDomain.CurrentDomain.BaseDirectory}Settings.xml";
+
+            if (!File.Exists(path))
+                SettingsConfig.Save(settings, path);
+
             ConfigurationFileMap fileMap = new ConfigurationFileMap(path);
             Configuration config = ConfigurationManager.OpenMappedMachineConfiguration(fileMap);
             settings = (SettingsConfig)config.GetSection("SettingsConfig");
-            if (path == null)
-                path = $"{AppDomain.CurrentDomain.BaseDirectory}Settings.xml";
         }
     }
 }
