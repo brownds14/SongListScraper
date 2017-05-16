@@ -9,12 +9,29 @@ namespace SongListScraper.Helpers.Logging
 
         public Log4NetAdapter()
         {
-            _logger = LogManager.GetLogger("MyConsoleAppender");
+            _logger = LogManager.GetLogger("SongListScraper");
         }
 
         public void Log(LogType type, string msg, Exception e = null)
         {
-            _logger.Info(msg);
+            switch (type)
+            {
+                case LogType.DEBUG:
+                    _logger.Debug(msg, e);
+                    break;
+                case LogType.INFO:
+                    _logger.Info(msg, e);
+                    break;
+                case LogType.WARN:
+                    _logger.Warn(msg, e);
+                    break;
+                case LogType.ERROR:
+                    _logger.Error(msg, e);
+                    break;
+                case LogType.FATAL:
+                    _logger.Fatal(msg, e);
+                    break;
+            }
         }
     }
 }

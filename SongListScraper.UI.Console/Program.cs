@@ -33,6 +33,7 @@ namespace SongListScraper.UI.Console
             }
 
             ScrapingService service = container.Resolve<ScrapingService>();
+            service.StartService();
 
             System.Console.Read();
         }

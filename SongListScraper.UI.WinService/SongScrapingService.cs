@@ -24,7 +24,7 @@ namespace SongListScraper.UI.WinService
             container.RegisterInstance<SettingsConfig>(_settings);
 
             container.RegisterType<IDownload, HtmlDownloader>();
-            container.RegisterType<ILogger, FalseLogger>();
+            container.RegisterType<ILogger, Log4NetAdapter>();
             container.RegisterType<IScrape, Station1033Scraper>();
 
             switch (_settings.StorageType)
@@ -37,21 +37,22 @@ namespace SongListScraper.UI.WinService
                     break;
             }
 
-            ScrapingService service = container.Resolve<ScrapingService>();
+            _service = container.Resolve<ScrapingService>();
 
             _logger = container.Resolve<ILogger>();
+            _logger.Log(LogType.INFO, "Components initialized");
         }
 
         protected override void OnStart(string[] args)
         {
-            _service.StartService();
             _logger.Log(LogType.INFO, "Windows service starting");
+            _service.StartService();
         }
 
         protected override void OnStop()
         {
-            _service.StopService();
             _logger.Log(LogType.INFO, "Windows service stopping");
+            _service.StopService();
         }
     }
 }

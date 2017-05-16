@@ -16,6 +16,7 @@ namespace SongListScraper
         private IScrape _scraper;
         private ILogger _logger;
         private IWrite _writer;
+        private bool canDownload = true;
 
         public ScrapingService(IScrape scraper, IWrite writer, SettingsConfig settings, ILogger logger)
         {
@@ -32,24 +33,37 @@ namespace SongListScraper
             _scraper = scraper;
             _writer = writer;
             _timer = new Timer(_interval);
-            _timer.Elapsed += _timer_Elapsed;
-            GetNewSongs();
-            StartService();
         }
 
         public void StartService()
         {
+            if (canDownload)
+            {
+                GetNewSongs();
+                canDownload = false;
+            }
+
+            _timer.Elapsed -= timerStoppedElapsed;
+            _timer.Elapsed += timerElapsed;
             _timer.Start();
         }
 
         public void StopService()
         {
-            _timer.Stop();
+            _timer.Elapsed -= timerElapsed;
+            _timer.Elapsed += timerStoppedElapsed;
         }
 
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void timerElapsed(object sender, ElapsedEventArgs e)
         {
             GetNewSongs();
+        }
+
+        private void timerStoppedElapsed(object sender, ElapsedEventArgs e)
+        {
+            canDownload = true;
+            _timer.Elapsed -= timerStoppedElapsed;
+            _timer.Stop();
         }
 
         private async void GetNewSongs()

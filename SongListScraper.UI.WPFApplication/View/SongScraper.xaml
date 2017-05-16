@@ -1,0 +1,96 @@
+﻿<Window x:Class="SongListScraper.UI.WPFApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SongListScraper.UI.WPFApplication"
+        mc:Ignorable="d"
+        Title="SongListScraper" Height="350" Width="525">
+    <Grid DataContext="{Binding Source={StaticResource Locator}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--Grid for scraper selection-->
+        <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Select a Song Scraper" />
+            <ComboBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Main.Model.SelectScraperEnabled}" ItemsSource="{Binding Main.Model.ScraperList}"></ComboBox>
+        </Grid>
+
+        <!--Grid for details header and start button-->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="Scraper Details">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Description" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="Desc here" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Address" />
+                    <Label Grid.Row="1" Grid.Column="1" Content="Addr here" />
+                </Grid>
+            </GroupBox>
+            <Button Grid.Row="0" Grid.Column="1" Content="Start Service" Margin="20" IsEnabled="{Binding Main.Model.StartStopServiceEnabled}" />
+
+        </Grid>
+
+        <!--Grid for content display-->
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.SongList}"></ListView>
+            <GroupBox Grid.Row="0" Grid.Column="1" Header="Song Details">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Title:" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Artist:" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Last Played:" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="tmpTitle" />
+                    <Label Grid.Row="1" Grid.Column="1" Content="tmpArtist" />
+                    <Label Grid.Row="2" Grid.Column="1" Content="tmpPlayed" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
