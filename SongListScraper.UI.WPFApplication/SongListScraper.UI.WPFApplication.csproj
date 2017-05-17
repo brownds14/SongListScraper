@@ -92,7 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\SongScraperModel.cs" />
+    <Compile Include="Model\Enums.cs" />
+    <Compile Include="Model\ScraperDetails.cs" />
+    <Compile Include="Model\ServiceButton.cs" />
     <Compile Include="ViewModel\SongScraperViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="View\SongScraper.xaml">

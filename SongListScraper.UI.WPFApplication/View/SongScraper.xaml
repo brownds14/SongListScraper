@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Select a Song Scraper" />
-            <ComboBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Main.Model.SelectScraperEnabled}" ItemsSource="{Binding Main.Model.ScraperList}" SelectedIndex="{Binding Main.Model.SelectedScraper}"></ComboBox>
+            <ComboBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Main.SelectScraperEnabled}" ItemsSource="{Binding Main.ScraperList}" SelectedIndex="{Binding Main.SelectedScraper}"></ComboBox>
         </Grid>
 
         <!--Grid for details header and start button-->
@@ -51,12 +51,12 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Content="Description:" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.ScraperDesc}" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.ScraperDetails.Description}" />
                     <Label Grid.Row="1" Grid.Column="0" Content="Address:" />
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.Model.ScraperAddr}" />
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.ScraperDetails.Address}" />
                 </Grid>
             </GroupBox>
-            <Button Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.ButtonText}" Margin="20" Command="{Binding Main.ServiceButton, Mode=OneWay}" />
+            <Button Grid.Row="0" Grid.Column="1" Content="{Binding Main.Button.ButtonText}" Margin="20" Command="{Binding Main.CmdServiceButton, Mode=OneWay}" />
 
         </Grid>
 
@@ -70,7 +70,7 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.Model.SongList}" SelectedIndex="{Binding Main.Model.SelectedSong}">
+            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.SongList}" SelectedIndex="{Binding Main.SelectedSong}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
@@ -94,9 +94,9 @@
                     <Label Grid.Row="0" Grid.Column="0" Content="Title:" />
                     <Label Grid.Row="1" Grid.Column="0" Content="Artist:" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Last Played:" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.SongTitle}" />
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.Model.SongArtist}" />
-                    <Label Grid.Row="2" Grid.Column="1" Content="{Binding Main.Model.SongPlayed}" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.CurrSong.Title}" />
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.CurrSong.Artist}" />
+                    <Label Grid.Row="2" Grid.Column="1" Content="{Binding Main.CurrSong.Played}" />
                 </Grid>
             </GroupBox>
         </Grid>
