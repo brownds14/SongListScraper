@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Select a Song Scraper" />
-            <ComboBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Main.Model.SelectScraperEnabled}" ItemsSource="{Binding Main.Model.ScraperList}"></ComboBox>
+            <ComboBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Main.Model.SelectScraperEnabled}" ItemsSource="{Binding Main.Model.ScraperList}" SelectedIndex="{Binding Main.Model.SelectedScraper}"></ComboBox>
         </Grid>
 
         <!--Grid for details header and start button-->
@@ -50,13 +50,13 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="Description" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="Desc here" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Address" />
-                    <Label Grid.Row="1" Grid.Column="1" Content="Addr here" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="Description:" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.ScraperDesc}" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Address:" />
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.Model.ScraperAddr}" />
                 </Grid>
             </GroupBox>
-            <Button Grid.Row="0" Grid.Column="1" Content="Start Service" Margin="20" IsEnabled="{Binding Main.Model.StartStopServiceEnabled}" />
+            <Button Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.ButtonText}" Margin="20" />
 
         </Grid>
 
@@ -70,7 +70,7 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.SongList}"></ListView>
+            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.SongList}" SelectedIndex="{Binding Main.Model.SelectedSong}"></ListView>
             <GroupBox Grid.Row="0" Grid.Column="1" Header="Song Details">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -86,9 +86,9 @@
                     <Label Grid.Row="0" Grid.Column="0" Content="Title:" />
                     <Label Grid.Row="1" Grid.Column="0" Content="Artist:" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Last Played:" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="tmpTitle" />
-                    <Label Grid.Row="1" Grid.Column="1" Content="tmpArtist" />
-                    <Label Grid.Row="2" Grid.Column="1" Content="tmpPlayed" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.SongTitle}" />
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.Model.SongArtist}" />
+                    <Label Grid.Row="2" Grid.Column="1" Content="{Binding Main.Model.SongPlayed}" />
                 </Grid>
             </GroupBox>
         </Grid>

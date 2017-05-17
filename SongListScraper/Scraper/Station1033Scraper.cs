@@ -15,8 +15,19 @@ namespace SongListScraper.Scraper
         private IDownload _downloader;
         private ILogger _logger;
 
-        private static readonly String _address = "http://alt1033.iheart.com/music/recently-played/";
+        private static readonly string _description = "Pulls recently played songs from Indy's Alt 103.3";
+        private static readonly string _address = "http://alt1033.iheart.com/music/recently-played/";
         private static readonly Int32 _downloadRestrict = 10; //Number of minutes before next download can be made
+
+        public string Description
+        {
+            get { return _description; }
+        }
+
+        public string Address
+        {
+            get { return _address; }
+        }
 
         public Station1033Scraper(IDownload downloader, ILogger logger)
         {
