@@ -70,7 +70,15 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.SongList}" SelectedIndex="{Binding Main.Model.SelectedSong}"></ListView>
+            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Main.Model.SongList}" SelectedIndex="{Binding Main.Model.SelectedSong}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+                        <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}" />
+                        <GridViewColumn Header="Date Played" DisplayMemberBinding="{Binding Played}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
             <GroupBox Grid.Row="0" Grid.Column="1" Header="Song Details">
                 <Grid>
                     <Grid.RowDefinitions>

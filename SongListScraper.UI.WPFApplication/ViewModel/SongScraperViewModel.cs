@@ -3,33 +3,24 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Practices.Unity;
 using SongListScraper.Helpers.Download;
 using SongListScraper.Helpers.Logging;
-using SongListScraper.Helpers.SongWriter;
 using SongListScraper.Scraper;
 using SongListScraper.Settings;
 using SongListScraper.UI.WPFApplication.Model;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Runtime.CompilerServices;
 
 namespace SongListScraper.UI.WPFApplication.ViewModel
 {
     public class SongScraperViewModel : ViewModelBase
     {
+        public SongScraperModel Model { get; set; }
+
         private UnityContainer _container;
         private SettingsConfig _settings;
         private ScrapingService _service = null;
         public ICommand ServiceButton { get; private set; }
-
-        private SongScraperModel _model;
-        public SongScraperModel Model
-        {
-            get { return _model; }
-            set
-            {
-                _model = value;
-                RaisePropertyChanged("Model");
-            }
-        }
 
         public SongScraperViewModel()
         {
@@ -43,19 +34,19 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
             _container.RegisterType<IDownload, HtmlDownloader>();
             _container.RegisterType<ILogger, Log4NetAdapter>();
 
-            _model = new SongScraperModel();
+            Model = new SongScraperModel();
 
             ServiceButton = new RelayCommand(ButtonPressed);
         }
 
         public void ButtonPressed()
         {
-            if (string.Compare(_model.ButtonText, SongScraperModel.StartString) == 0)
+            if (string.Compare(Model.ButtonText, SongScraperModel.StartString) == 0)
             {
                 //TODO: change to reflect combobox
                 if (_service == null)
                 {
-                    _container.RegisterType<IScrape, Station1033Scraper>();
+                    RegisterScraperToContainer();
                     _service = _container.Resolve<ScrapingService>();
                 }
                 _service.StartService();
@@ -75,6 +66,40 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
             foreach (var s in songs)
             {
                 Model.SongList.Add(s);
+            }
+        }
+
+        public void SetScraperDetail()
+        {
+            RegisterScraperToContainer();
+            IScrape scraper = _container.Resolve<IScrape>();
+            Model.ScraperDesc = scraper.Description;
+            Model.ScraperAddr = scraper.Address;
+        }
+
+        public void RegisterScraperToContainer()
+        {
+            string scraperName = Model.ScraperList[Model.SelectedScraper];
+            string[] scraperNames = Enum.GetNames(typeof(Scrapers));
+            int index = Array.FindIndex(scraperNames, x => String.Compare(x, scraperName) == 0);
+            
+            switch ((Scrapers)index)
+            {
+                case Scrapers.Station1033Scraper:
+                    _container.RegisterType<IScrape, Station1033Scraper>();
+                    break;
+            }
+        }
+
+        public override void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.RaisePropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case "SelectedScraper":
+                    SetScraperDetail();
+                    break;
             }
         }
     }
