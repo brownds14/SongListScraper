@@ -56,7 +56,7 @@
                     <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.Model.ScraperAddr}" />
                 </Grid>
             </GroupBox>
-            <Button Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.ButtonText}" Margin="20" />
+            <Button Grid.Row="0" Grid.Column="1" Content="{Binding Main.Model.ButtonText}" Margin="20" Command="{Binding Main.ServiceButton, Mode=OneWay}" />
 
         </Grid>
 

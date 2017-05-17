@@ -5,6 +5,7 @@ using SongListScraper.Helpers.Logging;
 using SongListScraper.Helpers.SongWriter;
 using SongListScraper.Scraper;
 using SongListScraper.Settings;
+using System.Collections.Generic;
 
 namespace SongListScraper.UI.WinService
 {
@@ -12,35 +13,43 @@ namespace SongListScraper.UI.WinService
     {
         private ScrapingService _service;
         private ILogger _logger;
+        private UnityContainer _container;
 
         public SongScrapingService()
         {
             InitializeComponent();
 
-            var container = new UnityContainer();
+            _container = new UnityContainer();
 
             SettingsConfig _settings = new SettingsConfig();
             SettingsConfig.Load(ref _settings);
-            container.RegisterInstance<SettingsConfig>(_settings);
+            _container.RegisterInstance<SettingsConfig>(_settings);
 
-            container.RegisterType<IDownload, HtmlDownloader>();
-            container.RegisterType<ILogger, Log4NetAdapter>();
-            container.RegisterType<IScrape, Station1033Scraper>();
+            _container.RegisterInstance<SongCallback>(WriteSongs);
+            _container.RegisterType<IDownload, HtmlDownloader>();
+            _container.RegisterType<ILogger, Log4NetAdapter>();
+            _container.RegisterType<IScrape, Station1033Scraper>();
 
             switch (_settings.StorageType)
             {
                 case SongStorage.CONSOLE:
-                    container.RegisterType<IWrite, WriteSongToConsole>();
+                    _container.RegisterType<IWrite, WriteSongToConsole>();
                     break;
                 case SongStorage.FILE:
-                    container.RegisterType<IWrite, WriteSongToFile>();
+                    _container.RegisterType<IWrite, WriteSongToFile>();
                     break;
             }
 
-            _service = container.Resolve<ScrapingService>();
+            _service = _container.Resolve<ScrapingService>();
 
-            _logger = container.Resolve<ILogger>();
+            _logger = _container.Resolve<ILogger>();
             _logger.Log(LogType.INFO, "Components initialized");
+        }
+
+        public void WriteSongs(List<Song> songs)
+        {
+            IWrite writer = _container.Resolve<IWrite>();
+            writer.WriteSongs(songs);
         }
 
         protected override void OnStart(string[] args)

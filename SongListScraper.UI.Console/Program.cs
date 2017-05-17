@@ -4,20 +4,23 @@ using SongListScraper.Helpers.Logging;
 using SongListScraper.Helpers.SongWriter;
 using SongListScraper.Scraper;
 using SongListScraper.Settings;
+using System.Collections.Generic;
 
 namespace SongListScraper.UI.Console
 {
-    class Pogram
+    public class Pogram
     {
-        static void Main(string[] args)
+        public static UnityContainer container;
+        public static void Main(string[] args)
         {
-            var container = new UnityContainer();
+            container = new UnityContainer();
 
             SettingsConfig _settings = new SettingsConfig();
             _settings.StorageType = SongStorage.CONSOLE;
             SettingsConfig.Load(ref _settings);
             container.RegisterInstance<SettingsConfig>(_settings);
 
+            container.RegisterInstance<SongCallback>(WriteSongs);
             container.RegisterType<IDownload, HtmlDownloader>();
             container.RegisterType<ILogger, Log4NetAdapter>();
             container.RegisterType<IScrape, Station1033Scraper>();
@@ -36,6 +39,12 @@ namespace SongListScraper.UI.Console
             service.StartService();
 
             System.Console.Read();
+        }
+
+        public static void WriteSongs(List<Song> songs)
+        {
+            IWrite writer = container.Resolve<IWrite>();
+            writer.WriteSongs(songs);
         }
     }
 }

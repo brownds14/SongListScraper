@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace SongListScraper.UI.WPFApplication.Model
 {
@@ -8,10 +9,12 @@ namespace SongListScraper.UI.WPFApplication.Model
         Station1033Scraper
     }
 
-    public class SongScraperModel
+    public class SongScraperModel : INotifyPropertyChanged
     {
         public static readonly string StartString = "Start Service";
         public static readonly string StopString = "Stop Service";
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<string> ScraperList { get; }
         public int SelectedScraper { get; set; }
@@ -48,6 +51,15 @@ namespace SongListScraper.UI.WPFApplication.Model
             SongTitle = string.Empty;
             SongArtist = string.Empty;
             SongPlayed = string.Empty;
+        }
+
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            var tmp = PropertyChanged;
+            if (tmp != null)
+            {
+                tmp(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
