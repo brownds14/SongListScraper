@@ -71,7 +71,7 @@ namespace SongListScraper
 
         private async void GetNewSongs()
         {
-            DateTime oldest = new DateTime();
+            DateTime? oldest = new DateTime();
 
             try
             {

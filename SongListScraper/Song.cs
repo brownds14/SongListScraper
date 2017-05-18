@@ -5,9 +5,9 @@ namespace SongListScraper
 {
     public class Song
     {
-        public String Title { get; set; }
-        public String Artist { get; set; }
-        public DateTime Played { get; set; }
+        public string Title { get; set; }
+        public string Artist { get; set; }
+        public DateTime? Played { get; set; }
 
         public override string ToString()
         {

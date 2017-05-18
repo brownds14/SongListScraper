@@ -17,7 +17,7 @@ namespace SongListScraper.Scraper
 
         private static readonly string _description = "Pulls recently played songs from Indy's Alt 103.3";
         private static readonly string _address = "http://alt1033.iheart.com/music/recently-played/";
-        private static readonly Int32 _downloadRestrict = 10; //Number of minutes before next download can be made
+        private static readonly int _downloadRestrict = 10; //Number of minutes before next download can be made
 
         public string Description
         {
@@ -71,11 +71,11 @@ namespace SongListScraper.Scraper
                 for (int i = 0; i < songTitles.Count; ++i)
                 {
                     //Parse the play times html for the hour and minute
-                    String timeHtml = playTimes[i].SelectSingleNode("./span").InnerHtml;
-                    String fullTime = timeHtml.Substring(0, timeHtml.IndexOf('<'));
-                    String[] time = fullTime.Substring(0, fullTime.Length - 2).Split(':');
-                    Int32 hour = Convert.ToInt32(time[0]);
-                    Int32 min = Convert.ToInt32(time[1]);
+                    string timeHtml = playTimes[i].SelectSingleNode("./span").InnerHtml;
+                    string fullTime = timeHtml.Substring(0, timeHtml.IndexOf('<'));
+                    string[] time = fullTime.Substring(0, fullTime.Length - 2).Split(':');
+                    int hour = Convert.ToInt32(time[0]);
+                    int min = Convert.ToInt32(time[1]);
 
                     //Adjust if the playlist plays over multiple days
                     if (fullTime.Contains("am"))

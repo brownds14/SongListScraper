@@ -9,7 +9,6 @@ using SongListScraper.UI.WPFApplication.Model;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using static SongListScraper.UI.WPFApplication.Model.Enums;
 
@@ -36,8 +35,12 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
             get { return _selectScraper; }
             set
             {
-                Set<int>(() => this.SelectedScraper, ref _selectScraper, value);
-                SetScraperDetail();
+                //Determines if the property was changed
+                if (Set<int>(() => this.SelectedScraper, ref _selectScraper, value))
+                {
+                    SetScraperDetail();
+                    _service = null;
+                }
             }
         }
 
@@ -159,6 +162,9 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
             {
                 case Scrapers.Station1033Scraper:
                     _container.RegisterType<IScrape, Station1033Scraper>();
+                    break;
+                case Scrapers.Alt1025Scraper:
+                    _container.RegisterType<IScrape, Alt1025Scraper>();
                     break;
             }
         }

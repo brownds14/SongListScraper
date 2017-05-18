@@ -4,7 +4,8 @@
     {
         public enum Scrapers
         {
-            Station1033Scraper
+            Station1033Scraper,
+            Alt1025Scraper
         }
     }
 }

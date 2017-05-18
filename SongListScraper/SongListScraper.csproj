@@ -58,6 +58,7 @@
     <Compile Include="Helpers\Logging\FalseLogger.cs" />
     <Compile Include="Helpers\Logging\ILogger.cs" />
     <Compile Include="Scraper\IScrape.cs" />
+    <Compile Include="Scraper\Alt1025Scraper.cs" />
     <Compile Include="ScrapingService.cs" />
     <Compile Include="Settings\Enums.cs" />
     <Compile Include="Settings\SettingsConfig.cs" />

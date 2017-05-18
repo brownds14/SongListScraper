@@ -23,7 +23,7 @@ namespace SongListScraper.UI.Console
             container.RegisterInstance<SongCallback>(WriteSongs);
             container.RegisterType<IDownload, HtmlDownloader>();
             container.RegisterType<ILogger, Log4NetAdapter>();
-            container.RegisterType<IScrape, Station1033Scraper>();
+            container.RegisterType<IScrape, Alt1025Scraper>();
 
             switch (_settings.StorageType)
             {
