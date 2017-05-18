@@ -4,15 +4,14 @@ using System.Timers;
 using SongListScraper.Scraper;
 using SongListScraper.Settings;
 using SongListScraper.Helpers.Logging;
-using SongListScraper.Helpers.SongWriter;
 
 namespace SongListScraper
 {
-    public delegate void SongCallback(List<Song> songs);
+    public delegate void NewSongsEventHandler(List<Song> songs);
 
     public class ScrapingService
     {
-
+        public event NewSongsEventHandler NewSongsRetrieved;
 
         private Timer _timer;
         private double _interval;
@@ -20,10 +19,9 @@ namespace SongListScraper
         private IScrape _scraper;
         private ILogger _logger;
         private bool _canDownload = true;
-        private SongCallback _callback;
 
 
-        public ScrapingService(IScrape scraper, SongCallback callback, SettingsConfig settings, ILogger logger)
+        public ScrapingService(IScrape scraper, SettingsConfig settings, ILogger logger)
         {
             //Guards
             if (scraper == null)
@@ -31,7 +29,6 @@ namespace SongListScraper
             if (logger == null)
                 throw new ArgumentNullException("logger");
 
-            _callback = callback;
             _interval = new TimeSpan(0, settings.UpdateInterval, 0).TotalMilliseconds;
             _logger = logger;
             _scraper = scraper;
@@ -72,6 +69,7 @@ namespace SongListScraper
         private async void GetNewSongs()
         {
             DateTime? oldest = new DateTime();
+            List<Song> newSongs = new List<Song>();
 
             try
             {
@@ -79,7 +77,6 @@ namespace SongListScraper
                 {
                     _logger.Log(LogType.INFO, "Download Complete");
                     List<Song> songs = _scraper.ScrapeSongList();
-                    List<Song> newSongs = new List<Song>();
 
                     foreach (Song s in songs)
                     {
@@ -92,8 +89,8 @@ namespace SongListScraper
                         }
                     }
 
-                    _callback(newSongs);
                     lastAdded = oldest;
+                    NewSongsRetrieved(newSongs);
                 }
             }
             catch (ExcessiveDownloadException exception)

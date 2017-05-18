@@ -19,6 +19,7 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
         private UnityContainer _container;
         private SettingsConfig _settings;
         private ScrapingService _service = null;
+        private ILogger _logger;
         public ICommand CmdServiceButton { get; private set; }
 
         #region BindingProperties
@@ -96,9 +97,10 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
             SettingsConfig.Load(ref _settings);
             _container.RegisterInstance<SettingsConfig>(_settings);
 
-            _container.RegisterInstance<SongCallback>(AddSongs);
             _container.RegisterType<IDownload, HtmlDownloader>();
             _container.RegisterType<ILogger, Log4NetAdapter>();
+
+            _logger = _container.Resolve<ILogger>();
 
             //Setup commands
             CmdServiceButton = new RelayCommand(ButtonPressed);
@@ -123,6 +125,7 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
                 {
                     RegisterScraperToContainer();
                     _service = _container.Resolve<ScrapingService>();
+                    _service.NewSongsRetrieved += AddSongs;
                 }
                 _service.StartService();
                 Button.ButtonText = ServiceButton.StopString;
@@ -140,7 +143,10 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
         {
             foreach (var s in songs)
             {
-                SongList.Add(s);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SongList.Add(s);
+                });
             }
         }
 
