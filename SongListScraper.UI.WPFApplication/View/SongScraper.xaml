@@ -53,7 +53,13 @@
                     <Label Grid.Row="0" Grid.Column="0" Content="Description:" />
                     <Label Grid.Row="0" Grid.Column="1" Content="{Binding Main.ScraperDetails.Description}" />
                     <Label Grid.Row="1" Grid.Column="0" Content="Address:" />
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Main.ScraperDetails.Address}" />
+                    <Label Grid.Row="1" Grid.Column="1"> <!--="{Binding Main.ScraperDetails.Address}">-->
+                        <Label.Content>
+                            <Hyperlink NavigateUri="{Binding Main.ScraperDetails.Address}" Command="{Binding Main.CmdAddrHyperlink, Mode=OneWay}">
+                                <TextBlock Text="{Binding Main.ScraperDetails.Address}" />
+                            </Hyperlink>
+                        </Label.Content>
+                    </Label>
                 </Grid>
             </GroupBox>
             <Button Grid.Row="0" Grid.Column="1" Content="{Binding Main.Button.ButtonText}" Margin="20" Command="{Binding Main.CmdServiceButton, Mode=OneWay}" />

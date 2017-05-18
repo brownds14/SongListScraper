@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using static SongListScraper.UI.WPFApplication.Model.Enums;
+using System.Diagnostics;
 
 namespace SongListScraper.UI.WPFApplication.ViewModel
 {
@@ -21,6 +22,7 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
         private ScrapingService _service = null;
         private ILogger _logger;
         public ICommand CmdServiceButton { get; private set; }
+        public ICommand CmdAddrHyperlink { get; private set; }
 
         #region BindingProperties
         private ObservableCollection<string> _scraperList;
@@ -30,7 +32,7 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
             private set { Set(() => ScraperList, ref _scraperList, value); }
         }
 
-        public int _selectScraper;
+        public int _selectScraper = -1;
         public int SelectedScraper
         {
             get { return _selectScraper; }
@@ -104,6 +106,7 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
 
             //Setup commands
             CmdServiceButton = new RelayCommand(ButtonPressed);
+            CmdAddrHyperlink = new RelayCommand(FollowHyperlink);
 
             //Setup start values
             ScraperList = new ObservableCollection<string>();
@@ -173,6 +176,11 @@ namespace SongListScraper.UI.WPFApplication.ViewModel
                     _container.RegisterType<IScrape, Alt1025Scraper>();
                     break;
             }
+        }
+
+        public void FollowHyperlink()
+        {
+            Process.Start(ScraperDetails.Address);
         }
     }
 }
