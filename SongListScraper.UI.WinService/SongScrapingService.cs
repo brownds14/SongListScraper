@@ -25,10 +25,9 @@ namespace SongListScraper.UI.WinService
             SettingsConfig.Load(ref _settings);
             _container.RegisterInstance<SettingsConfig>(_settings);
 
-            _container.RegisterInstance<SongCallback>(WriteSongs);
             _container.RegisterType<IDownload, HtmlDownloader>();
             _container.RegisterType<ILogger, Log4NetAdapter>();
-            _container.RegisterType<IScrape, Station1033Scraper>();
+            _container.RegisterType<IScrape, Alt1025Scraper>();
 
             switch (_settings.StorageType)
             {
@@ -41,6 +40,7 @@ namespace SongListScraper.UI.WinService
             }
 
             _service = _container.Resolve<ScrapingService>();
+            _service.NewSongsRetrieved += WriteSongs;
 
             _logger = _container.Resolve<ILogger>();
             _logger.Log(LogType.INFO, "Components initialized");

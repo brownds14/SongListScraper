@@ -20,7 +20,6 @@ namespace SongListScraper.UI.Console
             SettingsConfig.Load(ref _settings);
             container.RegisterInstance<SettingsConfig>(_settings);
 
-            container.RegisterInstance<SongCallback>(WriteSongs);
             container.RegisterType<IDownload, HtmlDownloader>();
             container.RegisterType<ILogger, Log4NetAdapter>();
             container.RegisterType<IScrape, Alt1025Scraper>();
@@ -36,6 +35,7 @@ namespace SongListScraper.UI.Console
             }
 
             ScrapingService service = container.Resolve<ScrapingService>();
+            service.NewSongsRetrieved += WriteSongs;
             service.StartService();
 
             System.Console.Read();
